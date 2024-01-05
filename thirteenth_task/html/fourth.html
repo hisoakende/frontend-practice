@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 10000vh;
+        }
+
+        .content {
+            padding: 20px;
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #33a6ff72;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        var newContent = document.createElement('div');
+        newContent.className = 'content';
+        newContent.innerHTML = '0';
+
+        document.body.appendChild(newContent);
+        newContent = document.createElement('div');
+        newContent.className = 'content';
+        newContent.innerHTML = '1';
+        document.body.appendChild(newContent);
+        newContent = document.createElement('div');
+        newContent.className = 'content';
+        newContent.innerHTML = '2';
+        document.body.appendChild(newContent);
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            let contentCounter = 3;
+            let lastScrolledValue = 0
+
+            function handleScroll() {
+                var scrolledValue = window.scrollY;
+                var windowHeight = window.innerHeight;
+                var documentHeight = document.documentElement.scrollHeight;
+
+                console.log(scrolledValue > lastScrolledValue + 50);
+                if (scrolledValue > lastScrolledValue + 50) {
+                    lastScrolledValue = scrolledValue
+                    isCreatingContent = true;
+                    
+                    var newContent = document.createElement('div');
+                    newContent.className = 'content';
+                    newContent.innerHTML =contentCounter;
+
+                    document.body.appendChild(newContent);
+                    console.log(document.querySelector('body').style);
+                    contentCounter++;
+                }
+            }
+
+            window.addEventListener('scroll', handleScroll);
+        });
+    </script>
+</body>
+</html>

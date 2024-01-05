@@ -1,0 +1,180 @@
+.container {
+    display: grid;
+    font-size: 3em;
+    padding: 60px 35px;
+    grid-auto-flow: dense;
+    grid-template-columns: [one] 270px [two] auto [tree] 200px [four];
+    grid-template-rows: [one] 80px [two] 80px [tree] 800px [four] 80px [five] 80px 80px;
+    column-gap: 16px;
+    row-gap: 16px;
+}
+
+.element {
+    background-color: aquamarine;
+}
+
+.header {
+    background-color: black;
+    color: wheat;
+    grid-column-start: one;
+    grid-column-end: four;
+    grid-row-start: one;
+    grid-row-end: two;
+}
+
+.sidebar {
+    background-color: antiquewhite;
+    grid-column-start: one;
+    grid-column-end: two;
+    grid-row-start: two;
+    grid-row-end: four;
+}
+
+.nav {
+    background-color: aqua;
+}
+
+.ads {
+    background-color: red;
+    grid-column-start: tree;
+    grid-column-end: four;
+    grid-row-start: two;
+    grid-row-end: four;
+}
+
+.main {
+    background-color: blue;
+}
+
+.footer {
+    background-color: yellow;
+    grid-column-start: one;
+    grid-column-end: four;
+    grid-row-start: four;
+    grid-row-end: five;
+}
+
+
+@media screen and (max-width: 1001px) {
+    .container {
+        display: grid;
+        font-size: 3em;
+        padding: 40px 25px;
+        grid-auto-flow: dense;
+        grid-template-columns: [one] 270px [two] auto [tree] 200px [four];
+        grid-template-rows: [one] 80px [two] 80px [tree] 800px [four] 80px [five];
+        column-gap: 13px;
+        row-gap: 13px;
+    }
+
+    .header {
+        background-color: black;
+        color: wheat;
+        grid-column-start: one;
+        grid-column-end: four;
+        grid-row-start: one;
+        grid-row-end: two;
+    }
+
+    .sidebar {
+        background-color: antiquewhite;
+        grid-column-start: one;
+        grid-column-end: two;
+        grid-row-start: tree;
+        grid-row-end: four;
+    }
+
+    .nav {
+        background-color: aqua;
+        grid-column-start: one;
+        grid-column-end: four;
+        grid-row-start: two;
+        grid-row-end: tree;
+    }
+
+    .ads {
+        background-color: red;
+        grid-column-start: one;
+        grid-column-end: two;
+        grid-row-start: four;
+        grid-row-end: five;
+    }
+
+    .main {
+        background-color: blue;
+        grid-column-start: two;
+        grid-column-end: four;
+        grid-row-start: tree;
+        grid-row-end: four;
+    }
+
+    .footer {
+        background-color: green;
+        grid-column-start: two;
+        grid-column-end: four;
+        grid-row-start: four;
+        grid-row-end: five;
+    }
+}
+
+@media screen and (max-width: 686px) {
+    .container {
+        display: grid;
+        font-size: 3em;
+        padding: 40px 25px;
+        grid-auto-flow: dense;
+        grid-template-columns: 100%;
+        grid-template-rows: 100px 100px 400px 100px 100px 100px;
+        column-gap: 13px;
+        row-gap: 13px;
+    }
+
+    .header {
+        background-color: black;
+        color: wheat;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+
+    .sidebar {
+        background-color: antiquewhite;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 4;
+        grid-row-end: 5;
+    }
+
+    .nav {
+        background-color: aqua;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    .ads {
+        background-color: red;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 5;
+        grid-row-end: 6;
+    }
+
+    .main {
+        background-color: blue;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 3;
+        grid-row-end: 4;
+    }
+
+    .footer {
+        background-color: yellow;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 6;
+        grid-row-end: 7;
+    }
+}

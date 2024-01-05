@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 11</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Итоговая стоимость: <span id="total">30</span></h2>
+        <div class="buttons">
+            <div class="first-buttons">
+                <button class="add-btn">Добавить элемент</button>
+                <button class="remove-all-btn">Отчистить элементы</button>
+            </div>
+            <div class="second-buttons">
+                <button class="filter">Отфильтровать</button>
+                <button class="asc">Сортировка по возрастанию</button>
+                <button class="desc">Сортировка по убыванию</button>
+            </div>
+            
+        </div>
+        <div class="list"></div>
+    </div>
+    
+</body>
+<script>
+let lastId = 3;
+let data = [
+  {id: 1, value: 1, price: 10, count: 1},
+  {id: 2, value: 2, price: 10, count: 1},
+  { id: 3, value: 3, price: 10, count: 1}
+];
+
+const total = document.querySelector('#total');
+
+function generateListItem(item) {
+  return `<div class="item" data-id="${item.id}">`+
+    `<div class="item-props">`+
+        `<div class="item-value">${item.value}</div>` +
+        `<div class="item-price">${item.price}</div>` +
+    `</div>` + 
+    `<div class="item-count-manage">` +
+            `<div class="item-count">${item.count}</div>` +
+            `<button class="increase">Увеличить</button>`+
+            `<button class="descrease">Уменьшить</button>` +
+    `</div>` +
+    `<button class="delete-btn">Удалить</button>` +
+    `</div>`;
+}
+
+function renderList() {
+  const list = document.querySelector('.list');
+  
+  list.innerHTML = '';
+  
+  data.forEach(item => {
+    list.innerHTML += generateListItem(item);
+  });
+}
+
+function deleteItem(id) {
+    const index = data.findIndex(item => item.id === id);
+
+    if (index !== -1) {
+        data.splice(index, 1);
+        updateTotal();
+        renderList();
+        addListeners();
+    }
+}
+
+function handleDeleteClick(event) {
+    deleteItem(parseInt(event.target.parentElement.dataset.id));
+}
+
+function handleAddClick() {
+  const value = prompt('Введите значение объекта:', "");
+  if (!value.match(/^\d+$/)) {
+    alert('Неверные данные')
+    return;
+  }
+
+  const price = prompt('Введите цену объекта:', "");
+  
+  if (!price.match(/^\d+$/)) {
+    alert('Неверные данные')
+    return;
+  }
+    const count = 1;
+    lastId++;
+    const id = lastId;
+    total.innerHTML = Number(total.innerHTML) + Number(price);
+    data.push({ id, value, price, count });
+    renderList();
+    addListeners();
+  
+}
+
+function handleIncreaseElement(event) {
+    let id = parseInt(event.target.parentElement.parentElement.dataset.id);
+    for (let item of data) {
+        if (item.id === id) {
+            total.innerHTML = Number(total.innerHTML) + Number(item.price);
+            item.count++;
+            renderList();
+            addListeners();
+            break;
+        }
+    }
+}
+
+function handleDescreaseClick(event) {
+    let id = parseInt(event.target.parentElement.parentElement.dataset.id);
+    for (let item of data) {
+        if (item.id === id && item.count > 0) {
+            total.innerHTML = Number(total.innerHTML) - Number(item.price);
+            item.count--;
+            if (item.count == 0) {
+                deleteItem(id);
+            }
+            renderList();
+            addListeners();
+            break;
+        }
+    }
+}
+
+function removeAll() {
+    data = [];
+    total.innerHTML = 0;
+    renderList();
+}
+
+function sortAsc() {
+    data.sort((a, b) => (a.value > b.value) ? 1 : -1);
+    renderList();
+    addListeners();
+}
+
+function sortDesc() {
+    data.sort((a, b) => (a.value <= b.value) ? 1 : -1);
+    renderList();
+    addListeners();
+}
+
+function updateTotal() {
+    let newSum = 0;
+    for(let item of data) {
+        newSum += Number(item.price) * Number(item.count);
+    }
+    total.innerHTML = newSum;
+}
+
+function filterData() {
+    const min = Number(prompt('Введите минимальное значение:'), 1);
+    const max = Number(prompt('Введите максимальное значение:'), 10);
+
+    data = data.filter(obj => Number(obj.value) >= min && Number(obj.value) <= max);
+    updateTotal();
+    renderList();
+    addListeners();
+}
+
+function addListeners() {
+    document.querySelectorAll('.delete-btn').forEach(target => target.addEventListener('click', handleDeleteClick));
+    document.querySelectorAll('.increase').forEach(target => target.addEventListener('click', handleIncreaseElement));
+    document.querySelectorAll('.descrease').forEach(target => target.addEventListener('click', handleDescreaseClick));
+}
+
+
+document.querySelector('.add-btn').addEventListener('click', handleAddClick);
+document.querySelector('.remove-all-btn').addEventListener('click', removeAll);
+document.querySelectorAll('.asc').forEach(target => target.addEventListener('click', sortAsc));
+document.querySelectorAll('.desc').forEach(target => target.addEventListener('click', sortDesc));
+document.querySelector('.filter').addEventListener('click', filterData);
+renderList();
+addListeners();
+
+</script>
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial;
+}
+
+body {
+    padding-bottom: 30px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.container {
+    margin: 50px auto 0 auto;
+    width: 500px;
+}
+
+.first-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.second-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.second-buttons button {
+    padding: 5px;
+}
+
+.item {
+    margin-top: 10px;
+    border: 2px solid teal;
+    padding: 15px;
+}
+
+.item-value {
+    width: 100%;
+    border: 2px solid teal;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.item-price {
+    width: 100%;
+    border: 2px solid teal;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.item-props {
+    text-align: center;
+    display: flex;
+    gap: 10px;
+}
+
+.item-count-manage {
+    display: flex;
+    gap: 10px;
+}
+
+.item-count-manage button {
+    height: 32.5px;
+}
+
+.item-count {
+    border: 2px solid teal;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+button {
+    width: 100%;
+    color: teal;
+    height: 60px;
+    border: 2px solid teal;
+    background-color: unset;
+}
+
+</style>
+</html>

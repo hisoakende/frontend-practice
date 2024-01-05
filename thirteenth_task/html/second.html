@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" type="text/css" href="/css/notification.css">
+
+  <title>Notification homework</title>
+</head>
+
+<body>
+  <div class="screen-wrapper">
+  </div>
+  <script>
+    var counter = 1;
+    var isPause = false;
+
+    function showNotification(message) {
+      let screenWrapper = document.querySelector('.screen-wrapper');
+
+      let notificationElement = document.createElement('div');
+      notificationElement.id = 'notifi';
+      notificationElement.innerHTML = message;
+
+      let closeButton = document.createElement('button');
+      closeButton.id = 'close-button';
+      closeButton.innerHTML = '×';
+
+      notificationElement.addEventListener('click', function (event) {
+        var clickedElement = event.target;
+
+        var elementId = clickedElement.id;
+
+        if (elementId === 'notifi') {
+          delayInvoke();
+        }
+        else if (elementId === 'close-button') {
+          closeNotification(notificationElement);
+        }
+      });
+
+      screenWrapper.appendChild(notificationElement);
+      notificationElement.appendChild(closeButton);
+
+      setTimeout(() => {
+        notificationElement.style.opacity = 0;
+        setTimeout(() => notificationElement.remove(), 500)
+      }, 1500);
+    }
+
+    function invokeNotification() {
+      if (!isPause) {
+        let message = 'Уведомление - ' + counter;
+        counter++;
+        showNotification(message);
+      }
+    }
+
+    setInterval(invokeNotification, 3500);
+
+    function delayInvoke() {
+      isPause = true;
+      setTimeout(() => isPause = false, 7000);
+    }
+
+    function closeNotification(notificationElement) {
+      notificationElement.remove();
+    }
+
+
+  </script>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      text-decoration: none;
+      list-style: none;
+      box-sizing: border-box;
+    }
+
+    body {
+      padding: 0;
+      margin: 0;
+    }
+
+    .screen-wrapper {
+      width: 500px;
+      height: 300px;
+      overflow: hidden;
+    }
+
+    #notifi {
+      position: absolute;
+      left: 15px;
+      top: 15px;
+      background-color: #74ff72;
+      color: #000000;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      transition: opacity 0.5s ease-in-out;
+      width: 160px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    #close-button {
+      top: 0px;
+      right: 5px;
+      position: absolute;
+      margin-left: 10px;
+      font-size: large;
+      background: none;
+      border: none;
+      color: red;
+    }
+
+    #close-button:hover {
+      cursor: pointer;
+    }
+  </style>
+</body>
+
+</html>

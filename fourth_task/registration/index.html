@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Butterfly+Kids&family=Roboto:wght@300;500&display=swap"
+        rel="stylesheet">
+    <title>Регистрация</title>
+</head>
+<body>
+    <article>
+        <h4>Регистрация</h4>
+        <form method="post">
+            <div class="input-box">
+                <label for="login">Псевдоним</label>
+                <input required pattern="^[a-zA-Z0-9]{1,12}$" placeholder="hisoakende" type="text" id="login" name="login">
+            </div>
+            <div class="input-box">
+                <label for="tel">Номер телефона</label>
+                <input required minlength="12" maxlength="12" placeholder="+79923033315" name="tel" id="tel" type="tel">
+            </div>
+            <div class="input-box">
+                <label for="email">Электронная почта</label>
+                <input required placeholder="hisoakende@gmail.com" name="email" id="email" type="email">
+            </div>
+            <div class="input-box">
+                <label for="password">Пароль</label>
+                <input required name="password" id="password" type="password" >
+            </div>
+            <div class="input-box last">
+                <label for="birthday">Дата рождения</label>
+                <input required name="birthday" id="birthday" type="datetime-local">
+            </div>
+            <div class="checkbox-box">
+                <input required checked name="agreement" id="agreement" type="checkbox">
+                <label for="agreement">Я согласен с тем, что мои данные будут проданы всем государствам и компаниям мира</label>
+            </div>
+            <input value="Сохранить" type="submit">
+        </form>
+    </article>
+</body>
+</html>

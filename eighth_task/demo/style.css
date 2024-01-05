@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #344049;
+    font-family: "Inter", sans-serif;
+}
+
+.container {
+    display: grid;
+    height: 100vh;
+    padding: 0.5rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1.2fr 1fr;
+    gap: 0.4rem;
+    /* Можно ли как-то по-другому расставить карточки? кроме этого св-а? */
+    grid-template-areas:
+    "content1 content1 content2 content3"
+    "content4 content5 content2 content6"
+    "content4 content7 content7 content7";
+}
+
+.container div {
+    color: white;
+    background-color: #515151;
+    display: flex;
+    border-radius: 0.2rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+    font-size: 1.3rem;
+    padding: 1.3rem;
+    transition: transform ease-in-out 0.3s;
+}
+
+.container div:hover {
+    background-color: rgb(233, 30, 99);
+    transform: scale(1.07);
+    z-index: 100;
+}
+
+.container div img {
+    max-width: 5rem;
+}
+
+.content1 {
+    grid-area: content1;
+}
+
+.content2 {
+    grid-area: content2;
+}
+
+.content3 {
+    grid-area: content3;
+}
+
+.content4 {
+    grid-area: content4;
+}
+
+.content5 {
+    grid-area: content5;
+}
+
+.content6 {
+    grid-area: content6;
+}
+
+.content7 {
+    grid-area: content7;
+}

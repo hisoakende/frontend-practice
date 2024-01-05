@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://kit.fontawesome.com/65c89343a4.js" crossorigin="anonymous"></script>
+</head>
+
+<style>
+  .wrapper{
+    display: flex;
+    height: 400px;
+    justify-content: center;
+  }
+  .products-wrapper{
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    height: 100%;
+    background-color: antiquewhite;
+  }
+  .cart{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    height: 100%;
+    background-color: rgb(223, 217, 208);
+    font-size: 20px;
+  }
+  .cart i {
+    margin-top: 20px;
+    font-size: 100px;
+  }
+
+  .item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+  }
+</style>
+
+<body>
+  <div class="wrapper">
+    <div class="products-wrapper" id="productWrapper">
+      <div class="product">
+        <div class="item" data-price="10" draggable="true" id="item1">Товар 1 - $10</div>
+        <div class="item" data-price="20" draggable="true" id="item2">Товар 2 - $20</div>
+        <div class="item" data-price="30" draggable="true" id="item3">Товар 3 - $30</div>
+      </div>
+    </div>
+
+    <div class="cart" id="cart" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <p id="totalPrice">Итого: $0</p>
+    </div>
+  </div>
+
+  <script>
+    let totalPrice = 0;
+
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      const draggedItemId = event.dataTransfer.getData("text");
+      const draggedItem = document.getElementById(draggedItemId);
+      const price = parseFloat(draggedItem.getAttribute("data-price"));
+      
+      totalPrice += price;
+      document.getElementById("totalPrice").innerText = `Итого: $${totalPrice.toFixed(2)}`;
+
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const items = document.querySelectorAll(".item");
+      items.forEach((item) => {
+        item.addEventListener("dragstart", (event) => {
+          event.dataTransfer.setData("text", event.target.id);
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

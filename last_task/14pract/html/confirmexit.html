@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<style>
+  .gallery {
+    display: flex;
+  }
+
+  .thumbnail {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+
+  .main-image {
+    width: 380px;
+  }
+</style>
+<style>
+  .selected {
+    background-color: #44dde2;
+  }
+
+  body {
+    user-select: none;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    width: 200px;
+    height: 30px;
+    font-size: 32px;
+    text-align: center;
+    cursor: pointer;
+    padding: 15px;
+    margin: 2px;
+    border: 1px solid #44e269;
+    border-radius: 4px;
+  }
+  li.selected {
+    color: #fff;
+  }
+</style>
+
+<style>
+  .slider-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+  }
+
+  #slider {
+    width: 400px;
+    margin: 50px auto;
+    position: relative;
+  }
+
+  #slider-bar {
+    height: 13px;
+    background-color: #b7b7b7;
+    position: relative;
+    border-radius: 8px;
+  }
+
+  #slider-handle {
+    width: 13px;
+    height: 30px;
+    background-color: #006bb2;
+    border-radius: 10px;
+    position: absolute;
+    top: -8px;
+    cursor: pointer;
+  }
+</style>
+
+
+
+<body>
+  
+  <div class="left-wrapper">
+    <div id="contents">
+      <a href="https://voroninegor.github.io/">Ознакомиться с моей курсовой работой</a>
+    </div>
+  
+    <!--  -->
+  
+    <div id="mainImage">
+      <img src="/img/hellokitty.png" class="main-image" />
+    </div>
+  
+    <div id="gallery" class="gallery">
+      <img
+        src="/img/demonsword.jpg"
+        class="thumbnail"
+        onclick="changeImage('/img/demonsword.jpg')"
+        width="120px"
+      />
+      <img
+        src="/img/hellokitty.png"
+        class="thumbnail"
+        onclick="changeImage('/img/hellokitty.png')"
+        width="120px"
+      />
+      <img
+        src="/img/favicon.png"
+        class="thumbnail"
+        onclick="changeImage('/img/favicon.png')"
+        width="120px"
+      />
+    </div>
+  
+  </div>
+  <!-- --- -->
+  
+  <div class="right-wrapper">
+
+    <ul id="selectableList">
+      <li>Элемент 1</li>
+      <li>Элемент 2</li>
+      <li>Элемент 3</li>
+      <li>Элемент 4</li>
+      <li>Элемент 5</li>
+      <li>Элемент 6</li>
+    </ul>
+  </div>
+
+  <div class="slider-wrapper">
+    <div id="slider">
+      <div id="slider-bar">
+        <div id="slider-handle"></div>
+      </div>
+    </div>
+
+    <a href="/html/bucket.html" >Посмотреть пример с корзиной</a>
+    <a href="/html/animation.html" >Анимация</a>
+
+
+
+  </div>
+
+  <!-- ---- -->
+  
+
+
+  <script>
+    document.getElementById('contents').addEventListener('click', function (event) {
+      if (event.target.tagName === 'A') {
+        const isConfirmed = confirm('Вы уверены, что хотите выйти со страницы?');
+       if (!isConfirmed) {
+          event.preventDefault();
+       }
+      }
+    })
+
+    // 
+    function changeImage(newSrc) {
+        const mainImage = document
+          .getElementById("mainImage")
+          .getElementsByTagName("img")[0];
+        mainImage.src = newSrc;
+      };
+
+    // 
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        const list = document.getElementById("selectableList");
+
+        list.addEventListener("click", function (event) {
+          const clickedElement = event.target;
+
+          if (event.ctrlKey || event.metaKey) {
+            clickedElement.classList.toggle("selected");
+          } else {
+            if (clickedElement.classList.contains("selected")) {
+              clickedElement.classList.remove("selected");
+            } else {
+              const allItems = list.getElementsByTagName("li");
+              for (const item of allItems) {
+                item.classList.remove("selected");
+              }
+              clickedElement.classList.add("selected");
+            }
+          }
+        });
+    });
+
+    // 
+
+    const slider = document.getElementById("slider");
+    const handle = document.getElementById("slider-handle");
+    let isDragging = false;
+
+    handle.addEventListener("mousedown", (event) => {
+      isDragging = true;
+      handle.style.transition = "left 0.05s ease-out";
+      startDragging(event);
+    });
+
+    document.addEventListener("mouseup", () => {
+      if (isDragging) {
+      isDragging = false;
+      }
+    });
+
+    document.addEventListener("mousemove", (event) => {
+      if (isDragging) {
+        startDragging(event);
+      }
+    });
+
+    function startDragging(event) {
+      const sliderRect = slider.getBoundingClientRect();
+      const handleRect = handle.getBoundingClientRect();
+
+      let left = event.clientX - sliderRect.left - handleRect.width / 2;
+      const maxLeft = slider.clientWidth - handleRect.width;
+
+      left = Math.max(0, Math.min(left, maxLeft));
+      handle.style.left = `${left}px`;
+    }
+  </script>
+
+
+</body>
+
+</html>

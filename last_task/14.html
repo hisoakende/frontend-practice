@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="14.css">
+  <title>Confirmation on Link Click</title>
+</head>
+
+<body>
+
+  <div id="contents">
+    <p><a href="https://example.com">Ссылка</a></p>
+  </div>
+
+  <div class="first">
+    <div class="gallery">
+      <div class="main-image">
+        <img src="1.jpeg" alt="Main Image" id="mainImage">
+      </div>
+      <div class="thumbnails">
+        <img src="1.jpeg" alt="Thumbnail 1" onclick="changeImage('1.jpeg')">
+        <img src="2.jpeg" alt="Thumbnail 2" onclick="changeImage('2.jpeg')">
+        <img src="3.jpeg" alt="Thumbnail 2" onclick="changeImage('3.jpeg')">
+        <img src="4.gif" alt="Thumbnail 2" onclick="changeImage('4.gif')">
+      </div>
+    </div>
+
+    <ul id="customList">
+      <li>Элемент 1</li>
+      <li>Элемент 2</li>
+      <li>Элемент 3</li>
+      <li>Элемент 4</li>
+      <li>Элемент 5</li>
+    </ul>
+  </div>
+
+  <div class="cart1">
+    <div class="items">
+      <div class="item" draggable="true" data-price="10">Товар 1 - 10$</div>
+      <div class="item" draggable="true" data-price="15">Товар 2 - 15$</div>
+      <div class="item" draggable="true" data-price="20">Товар 3 - 20$</div>
+      <div class="item" draggable="true" data-price="10">Товар 4 - 10$</div>
+      <div class="item" draggable="true" data-price="15">Товар 5 - 15$</div>
+      <div class="item" draggable="true" data-price="20">Товар 6 - 20$</div>
+      <div class="item" draggable="true" data-price="10">Товар 7 - 10$</div>
+      <div class="item" draggable="true" data-price="15">Товар 8 - 15$</div>
+      <div class="item" draggable="true" data-price="20">Товар 9 - 20$</div>
+      <div class="item" draggable="true" data-price="10">Товар 10 - 10$</div>
+      <div class="item" draggable="true" data-price="15">Товар 11 - 15$</div>
+      <div class="item" draggable="true" data-price="20">Товар 12 - 20$</div>
+    </div>
+
+    <div class="cart" id="cart">
+      <p>Корзина</p>
+      <p id="totalPrice">Итоговая стоимость: $0</p>
+    </div>
+  </div>
+
+  <div class="slider-container">
+    <div class="slider-track" id="sliderTrack">
+      <div class="slider-thumb" id="sliderThumb"></div>
+    </div>
+  </div>
+
+  <div id="path">
+    <div id="brick"></div>
+  </div>
+  <script src="https://js.cx/libs/animate.js"></script>
+  <script src="14.js"></script>
+  <script>
+    document.getElementById('contents').addEventListener('click', function (event) {
+      var targetElement = event.target;
+
+      while (targetElement && !targetElement.href) {
+        targetElement = targetElement.parentNode;
+      }
+
+      if (targetElement && targetElement.href) {
+        var confirmLeave = window.confirm("Вы уверены, что хотите покинуть страницу?");
+
+        if (!confirmLeave) {
+          event.preventDefault();
+        }
+      }
+    });
+
+    function changeImage(imageUrl) {
+      var mainImage = document.getElementById('mainImage');
+      mainImage.src = imageUrl;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      var sliderTrack = document.getElementById("sliderTrack");
+      var sliderThumb = document.getElementById("sliderThumb");
+
+      var isDragging = false;
+
+      sliderThumb.addEventListener("mousedown", function (event) {
+        isDragging = true;
+        sliderThumb.style.cursor = "grabbing";
+      });
+
+      document.addEventListener("mousemove", function (event) {
+        if (isDragging) {
+          var newPosition = event.clientX - sliderTrack.getBoundingClientRect().left;
+          newPosition = Math.max(0, Math.min(newPosition, sliderTrack.clientWidth - sliderThumb.clientWidth));
+
+          sliderThumb.style.left = newPosition + "px";
+        }
+      });
+
+      document.addEventListener("mouseup", function () {
+        if (isDragging) {
+          isDragging = false;
+          sliderThumb.style.cursor = "grab";
+        }
+      });
+
+      sliderThumb.addEventListener("touchstart", function (event) {
+        isDragging = true;
+      });
+
+      document.addEventListener("touchmove", function (event) {
+        if (isDragging) {
+          var newPosition = event.touches[0].clientX - sliderTrack.getBoundingClientRect().left;
+          newPosition = Math.max(0, Math.min(newPosition, sliderTrack.clientWidth - sliderThumb.clientWidth));
+
+          sliderThumb.style.left = newPosition + "px";
+        }
+      });
+
+      document.addEventListener("touchend", function () {
+        if (isDragging) {
+          isDragging = false;
+        }
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      var items = document.querySelectorAll(".item");
+      var cart = document.getElementById("cart");
+      var totalPriceElement = document.getElementById("totalPrice");
+      var totalCartPrice = 0;
+
+      items.forEach(function (item) {
+        item.addEventListener("dragstart", function (event) {
+          event.dataTransfer.setData("text/plain", item.dataset.price);
+        });
+      });
+
+      cart.addEventListener("dragover", function (event) {
+        event.preventDefault();
+      });
+
+      cart.addEventListener("drop", function (event) {
+        event.preventDefault();
+
+        var price = parseInt(event.dataTransfer.getData("text/plain"));
+        totalCartPrice += price;
+
+        totalPriceElement.textContent = "Итоговая стоимость: $" + totalCartPrice;
+      });
+    });
+    const square = document.querySelector('.square');
+
+function randomDirection() {
+  return Math.random() * 360;
+}
+
+function randomSpeed() {
+  return Math.random() * 5 + 2;
+}
+
+function randomRotation() {
+  return Math.random() > 0.5 ? 'clockwise' : 'counterclockwise';
+}
+function makeEaseInOut(timing) {
+      return function(timeFraction) {
+        if (timeFraction < .5)
+          return timing(2 * timeFraction) / 2;
+        else
+          return (2 - timing(2 * (1 - timeFraction))) / 2;
+      }
+    }
+
+
+    function bounce(timeFraction) {
+      for (let a = 0, b = 1; 1; a += b, b /= 2) {
+        if (timeFraction >= (7 - 4 * a) / 11) {
+          return -Math.pow((11 - 6 * a - 11 * timeFraction) / 4, 2) + Math.pow(b, 2)
+        }
+      }
+    }
+
+    let bounceEaseInOut = makeEaseInOut(bounce);
+
+    brick.onclick = function() {
+      animate({
+        duration: 3000,
+        timing: bounceEaseInOut,
+        draw: function(progress) {
+          brick.style.left = progress * 97.18 + '%';
+        }
+      });
+    };
+  </script>
+  <style>
+    .cart1 {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px
+    }
+
+    .container {
+      position: relative;
+    }
+
+    .square {
+      width: 50px;
+      height: 50px;
+      background-color: #556cfd;
+      position: absolute;
+    }
+  </style>
+</body>
+
+</html>

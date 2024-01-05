@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas></canvas>
+    <button onclick="changeDrawing(this)" class="button likeButton">Нравится</button>
+    <script>
+        if (prompt("Желаете пройти регистрацию на сайте?") == "Да") {
+            alert("Круто!")
+
+            let login = prompt("Введите логин");
+
+            switch (login) {
+                case "Админ":
+                    switch (prompt("Введите пароль")) {
+                        case "Я главный":
+                            alert("Здравствуйте!");
+                            break;
+                        case "":
+                        case null:
+                            alert("Отменено");
+                            break;
+                        default:
+                            alert("Неверный пароль!");
+                    }
+                    break;
+
+                case "":
+                case null:
+                    alert("Отменено")
+                    break;
+
+                default:
+                    alert("Я вас не знаю");
+            }
+
+        } else {
+            alert("Попробуйте еще раз")
+        }
+        
+        let isDrawing = false;
+        let canvas = document.querySelector('canvas');
+        console.log(canvas)
+        let ctx = canvas.getContext('2d');
+        let isLiked = false;
+
+        function changeColor(button) {
+            if (isLiked) {
+                button.style.backgroundColor = "#4CAF50"; /* Зеленый цвет при повторном нажатии */
+            } else {
+                button.style.backgroundColor = "#ff0000"; /* Красный цвет при первом нажатии */
+            }
+            isLiked = !isLiked;
+        }
+
+        function changeDrawing(button) {
+            isDrawing = !isDrawing;
+            changeColor(button);
+            if (!isDrawing) {
+                canvas.removeEventListener('mousemove', drawHeart);
+            } else {
+                canvas.addEventListener('mousemove', drawHeart);
+            }
+        }
+
+        function drawHeart(e) {
+            console.log(isDrawing)
+            if (isDrawing) {
+                let x = e.clientX - canvas.offsetLeft;
+                let y = e.clientY - canvas.offsetTop;
+                ctx.fillStyle = "#ff0000";
+                ctx.beginPath();
+                ctx.moveTo(x, y + 10);
+                ctx.quadraticCurveTo(x, y, x + 10, y);
+                ctx.quadraticCurveTo(x + 20, y, x + 20, y + 10);
+                ctx.quadraticCurveTo(x + 20, y, x + 30, y);
+                ctx.quadraticCurveTo(x + 40, y, x + 40, y + 10);
+                ctx.quadraticCurveTo(x + 40, y + 20, x + 20, y + 40);
+                ctx.quadraticCurveTo(x, y + 20, x, y + 10);
+                ctx.fill();
+            }
+        }
+    </script>
+
+</body>
+
+</html>

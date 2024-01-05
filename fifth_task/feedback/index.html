@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Butterfly+Kids&family=Roboto:wght@300;500&display=swap"
+        rel="stylesheet">
+    <title>Регистрация</title>
+</head>
+
+<body>
+    <article>
+        <h4>Обратная связь</h4>
+        <form method="post">
+            <div class="input-box">
+                <label for="name">Как к вам обращаться</label>
+                <input required pattern="^[a-zA-Z]{1,12}$" placeholder="Иван" type="text" id="name" name="login">
+            </div>
+            <div class="input-box">
+                <label for="age">Ваш возраст</label>
+                <input required min="1" max="120" placeholder="10" name="age" id="age" type="number">
+            </div>
+            <div class="input-box">
+                <label for="feedback">Что вы хотите нам рассказать?</label>
+                <textarea required minlength="1" maxlength="1000" cols="38" rows="5"
+                    placeholder="Мне нравится ваш сервис!" name="feedback" id="feedback"></textarea>
+            </div>
+            <fieldset>
+                <legend>Вы</legend>
+                <label>
+                    <input value="male" name="sex" type="radio">
+                    Мужчина
+                </label>
+                <label>
+                    <input value="female" name="sex" type="radio">
+                    Женщина
+                </label>
+            </fieldset>
+            <div class="choice">
+                <label>
+                    <p>Откуда вы:</p>
+                    <select required multiple size="5" name="Place">
+                        <option value="ussr">Бывший СССР</option>
+                        <option value="europe">Европа</option>
+                        <option value="usa">США</option>
+                        <option value="africa">Африка</option>
+                        <option value="asia">Азия</option>
+                        <option value="other">Другое</option>
+                    </select>
+                </label>
+            </div>
+            <button type="reset">Сбросить форму!</button>
+            <input value="Сохранить" type="submit">
+        </form>
+    </article>
+</body>
+
+</html>

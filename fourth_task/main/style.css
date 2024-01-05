@@ -1,0 +1,165 @@
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 60px;
+}
+
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto';
+    min-height: 100vh;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+
+header {
+    display: grid;
+    height: 60px;
+    grid-template-columns: 1fr 4fr 1fr;
+    background-color: #fdf0d5;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+
+header img {
+    height: inherit;
+    margin: 0 auto;
+}
+
+
+header a:first-child:active {
+    transform: scale(10000);
+    transition: 10000s all;
+}
+
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+nav a {
+    color: #000000;
+}
+
+
+nav a:visited {
+    color: #004d77;
+}
+
+
+nav a:hover {
+    transform: scale(1.05);
+    transition: 0.3s all;
+}
+
+
+body>div {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    margin-top: 60px;
+}
+
+div>img:first-child {
+    position: absolute;
+    top: 350px;
+    left: 30px;
+    height: 150px;
+    animation: moveLogo 4s linear infinite;
+}
+
+@keyframes moveLogo {
+    0% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(330px, 0px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+
+aside {
+    margin: 30px auto 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+aside a {
+    color: black;
+    margin-bottom: 20px;
+}
+
+
+aside:last-child {
+    position: relative;
+    height: 500px;
+    top: 80px;
+    right: 150px;
+    z-index: 1;
+}
+
+
+aside:last-child>img {
+    position: sticky;
+    top: 80px;
+    height: 200px;
+}
+
+
+section > img {
+    height: 200px;
+}
+
+
+.first-picture {
+    float: left;
+}
+
+
+.second-picture {
+    float: right;
+}
+
+
+video {
+    width: 100%;
+}
+
+footer:last-child {
+    margin-top: auto;
+    height: 130px;
+    background-color: #003049;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+footer span {
+    font-family: 'Butterfly Kids';
+    font-size: 50px;
+}
+
+
+footer a {
+    color: #fdf0d5;
+}
+
+
+footer address {
+    font-size: 18px;
+}
